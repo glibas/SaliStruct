@@ -33,7 +33,7 @@ def evaluate_directory(screenshot_dir, saliency_dir, metadata_path):
             attention = compute_attention_metrics(saliency)
             structure = compute_structure_metrics(screenshot)
             placement = compute_average_placement_score(screenshot, saliency)
-            score = compute_usability_score(attention, structure, placement)
+            score = compute_usability_score(attention, structure, placement) * 9 + 1
 
             results.append({
                 "filename": filename,

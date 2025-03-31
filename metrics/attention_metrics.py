@@ -37,6 +37,7 @@ def compute_center_of_gravity(saliency_map):
 def compute_attention_metrics(saliency_map):
     return {
         "entropy": compute_attention_entropy(saliency_map),
-        "clusters": compute_attention_clusters(saliency_map),
-        "center_of_gravity": compute_center_of_gravity(saliency_map)
+        "num_clusters": compute_attention_clusters(saliency_map),
+        "center_of_gravity_x": compute_center_of_gravity(saliency_map)[0],
+        "center_of_gravity_y": compute_center_of_gravity(saliency_map)[1],
     }

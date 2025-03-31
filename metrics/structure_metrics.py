@@ -32,6 +32,6 @@ def compute_visual_coverage(image):
 
 def compute_structure_metrics(image):
     return {
-        "symmetry": compute_symmetry_score(image),
+        "symmetry_score": compute_symmetry_score(image),
         "visual_coverage": compute_visual_coverage(image)
     }
