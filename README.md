@@ -1,5 +1,5 @@
 <p align="left">
-  <img src="https://github.com/user-attachments/assets/7caf661c-3f98-4db7-a5f4-76d3c236392f" alt="SaliStruct Logo" width="80"/>
+  <img src="https://github.com/user-attachments/assets/00de3092-2269-460f-b9a3-929e8c059032" alt="SaliStruct Logo" width="100"/>
 </p>
 
 # SaliStruct
