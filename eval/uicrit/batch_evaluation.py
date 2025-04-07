@@ -6,6 +6,9 @@ from metrics.structure_metrics import compute_structure_metrics
 from metrics.placement_metrics import compute_average_placement_score
 from model.usability_score import compute_usability_score
 from tqdm import tqdm
+from torchvision import models
+
+from saliency.gradcam_predict import GradCAM, generate_saliency_maps
 
 
 def evaluate_directory(screenshot_dir, saliency_dir, metadata_path):
@@ -49,11 +52,17 @@ def evaluate_directory(screenshot_dir, saliency_dir, metadata_path):
     return pd.DataFrame(results)
 
 saliency_model = 'gradcam'
+generate_saliency = False
+
+if generate_saliency:
+    model = models.resnet50(pretrained=True)
+    grad_cam = GradCAM(model, "layer4")
+    generate_saliency_maps('../../data/uicrit/screenshots', '../data/uicrit/saliency_maps/gradcam', model, grad_cam)
 
 # Example usage:
 df = evaluate_directory(
-    screenshot_dir='../data/uicrit/screenshots',
-    saliency_dir=f'../data/uicrit/saliency_maps/{saliency_model}',
-    metadata_path='../data/uicrit/uicrit_public.csv'
+    screenshot_dir='../../data/uicrit/screenshots',
+    saliency_dir=f'../../data/uicrit/saliency_maps/{saliency_model}',
+    metadata_path='../../data/uicrit/uicrit_public.csv'
 )
 df.to_csv(f'uicrit_eval_results_{saliency_model}.csv', index=False)

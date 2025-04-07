@@ -7,7 +7,7 @@ from PIL import Image, ExifTags
 import numpy as np
 import cv2
 from tqdm import tqdm
-from torchvision import models
+
 
 
 class GradCAM:
@@ -80,8 +80,3 @@ def generate_saliency_maps(input_dir, output_dir, model, grad_cam):
             saliency_map = predict_saliency(model, grad_cam, image_tensor, original_size)
             out_path = os.path.join(output_dir, file)
             cv2.imwrite(out_path, saliency_map)
-
-# Example usage:
-model = models.resnet50(pretrained=True)
-grad_cam = GradCAM(model, "layer4")
-generate_saliency_maps('../data/uicrit/screenshots', '../data/uicrit/saliency_maps/gradcam', model, grad_cam)
