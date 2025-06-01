@@ -13,14 +13,16 @@ from saliency.gradcam_predict import GradCAM, generate_saliency_maps
 
 def evaluate_directory(screenshot_dir, saliency_dir, metadata_path):
     df_meta = pd.read_csv(metadata_path)
-    df_avg = df_meta.groupby("rico_id")["usability_rating"].mean().reset_index()
-    df_avg.rename(columns={"usability_rating": "avg_usability_rating"}, inplace=True)
 
     results = []
 
-    for _, row in tqdm(df_avg.iterrows(), total=len(df_avg), desc="Evaluating Screens"):
+    for _, row in tqdm(df_meta.iterrows(), total=len(df_meta), desc="Evaluating Screens"):
         rico_id = int(row["rico_id"])
-        usability_rating = row["avg_usability_rating"]
+        usability_rating = row["usability_rating"]
+        aesthetics_rating = row["aesthetics_rating"]
+        design_quality_rating = row["design_quality_rating"]
+        efficency = row["efficency"]
+        learnability = row["learnability"]
         filename = f"{rico_id}.jpg"
 
         screenshot_path = os.path.join(screenshot_dir, filename)
@@ -42,6 +44,10 @@ def evaluate_directory(screenshot_dir, saliency_dir, metadata_path):
                 "filename": filename,
                 "predicted_score": score,
                 "usability_rating": usability_rating,
+                "aesthetics_rating": aesthetics_rating,
+                "design_quality_rating": design_quality_rating,
+                "efficency": efficency,
+                "learnability": learnability,
                 **attention,
                 **structure,
                 "placement_score": placement
